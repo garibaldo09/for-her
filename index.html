@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Para Você 🌙</title>
+  <style>
+    body {
+      margin: 0;
+      background: black;
+      overflow: hidden;
+      height: 100vh;
+    }
+
+    .firefly {
+      position: absolute;
+      width: 5px;
+      height: 5px;
+      background: radial-gradient(circle, #ffff99 0%, transparent 80%);
+      border-radius: 50%;
+      animation: blink 2s infinite alternate;
+    }
+
+    @keyframes blink {
+      from { opacity: 0.2; }
+      to { opacity: 1; }
+    }
+
+    .lily {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      animation: grow 5s forwards ease-out;
+      max-width: 300px;
+    }
+
+    @keyframes grow {
+      from { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+      to { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <audio autoplay loop>
+    <source src="bout_it_instrumental.mp3" type="audio/mpeg">
+    Seu navegador não suporta áudio.
+  </audio>
+
+  <img src="lily_white.jpg" alt="Lírio Branco" class="lily">
+
+  <script>
+    const fireflyCount = 30;
+
+    for (let i = 0; i < fireflyCount; i++) {
+      const firefly = document.createElement('div');
+      firefly.classList.add('firefly');
+      document.body.appendChild(firefly);
+
+      firefly.style.top = Math.random() * window.innerHeight + 'px';
+      firefly.style.left = Math.random() * window.innerWidth + 'px';
+
+      const duration = 5 + Math.random() * 5;
+      const delay = Math.random() * 5;
+
+      firefly.style.animationDuration = duration + 's';
+      firefly.style.animationDelay = delay + 's';
+
+      animateFirefly(firefly);
+    }
+
+    function animateFirefly(firefly) {
+      const toX = Math.random() * window.innerWidth;
+      const toY = Math.random() * window.innerHeight;
+      const duration = 10 + Math.random() * 10;
+
+      firefly.animate([
+        { transform: `translate(0, 0)` },
+        { transform: `translate(${toX - parseFloat(firefly.style.left)}px, ${toY - parseFloat(firefly.style.top)}px)` }
+      ], {
+        duration: duration * 1000,
+        direction: 'alternate',
+        iterations: Infinity,
+        easing: 'ease-in-out'
+      });
+    }
+  </script>
+</body>
+</html>
